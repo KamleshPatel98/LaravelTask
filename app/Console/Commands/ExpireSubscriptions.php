@@ -32,7 +32,8 @@ class ExpireSubscriptions extends Command
             ->update([
                 'status' => 'Inactive'
             ]);
-        Cache::forget('user_subscriptions');
+        Cache::forget('user_subscriptions_all');
+        Cache::forget('user_subscriptions_active');
         $this->info("Expired Subscriptions Updated: " . $expired);
     }
 }

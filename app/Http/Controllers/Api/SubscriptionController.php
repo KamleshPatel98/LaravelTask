@@ -13,19 +13,42 @@ class SubscriptionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $subscriptions = Cache::remember('user_subscriptions', 600, function () {
-            return Subscription::with('plan:id,name,price,billing_cycle' ,'user:id,name,email')
+        // $subscriptions = Cache::remember('user_subscriptions', 600, function () {
+        //     return Subscription::with('plan:id,name,price,billing_cycle' ,'user:id,name,email')
+        //         ->select('id', 'plan_id', 'user_id', 'start_date', 'end_date', 'amount', 'status')
+        //         ->orderBy('start_date', 'desc')
+        //         ->when($request->status !== null, function($query) use ($request) {
+        //             $query->where('status', $request->status);
+        //         })
+        //         ->get()
+        //         ->map(function($row){
+        //             $row->start_date = date('d-m-Y', strtotime($row->start_date));
+        //             $row->end_date = date('d-m-Y', strtotime($row->end_date));
+        //             return $row;
+
+        //         });
+        // });
+
+        $status = $request->status; // 'Active' or null
+
+        $cacheKey = $status === 'Active' 
+            ? 'user_subscriptions_active' 
+            : 'user_subscriptions_all';
+
+        $subscriptions = Cache::remember($cacheKey, 600, function () use ($status) {
+            return Subscription::with('plan:id,name,price,billing_cycle', 'user:id,name,email')
                 ->select('id', 'plan_id', 'user_id', 'start_date', 'end_date', 'amount', 'status')
                 ->orderBy('start_date', 'desc')
-                ->where('status', 'Active')
+                ->when($status === 'Active', function ($query) {
+                    $query->where('status', 'Active');
+                })
                 ->get()
-                ->map(function($row){
+                ->map(function ($row) {
                     $row->start_date = date('d-m-Y', strtotime($row->start_date));
                     $row->end_date = date('d-m-Y', strtotime($row->end_date));
                     return $row;
-
                 });
         });
             
@@ -64,7 +87,8 @@ class SubscriptionController extends Controller
             'amount' => $request->amount,
             'status' => 'Active',
         ]);
-        Cache::forget('user_subscriptions');
+        Cache::forget('user_subscriptions_all');
+        Cache::forget('user_subscriptions_active');
         return response()->json(['status'=>true, 'message'=>'Subscription Created Successfully!'], 200);
     }
 
@@ -110,7 +134,8 @@ class SubscriptionController extends Controller
             'amount' => $request->amount,
             'status' => $request->status,
         ]);
-        Cache::forget('user_subscriptions');
+        Cache::forget('user_subscriptions_all');
+        Cache::forget('user_subscriptions_active');
         return response()->json(['status'=>true, 'message'=>'Subscription Updated Successfully!'], 200);
     }
 
