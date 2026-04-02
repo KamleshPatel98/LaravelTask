@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Plan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 
 class PlanController extends Controller
@@ -14,7 +15,13 @@ class PlanController extends Controller
      */
     public function index()
     {
-        //
+        $plans = Cache::remember('active_plans', 600, function () {
+            return Plan::select('id', 'name', 'price', 'billing_cycle')
+                ->where('status', 'Active')
+                ->orderBy('name', 'asc')
+                ->get();
+        });
+        return response()->json(['status'=>true, 'message'=>'Plans Fetched Successfully!', 'data' => $plans], 200);
     }
 
     /**
@@ -33,6 +40,7 @@ class PlanController extends Controller
         }
 
         $plan = Plan::create($validated->validate());
+        Cache::forget('active_plans');
         return response()->json(['status'=>true, 'message'=>'Plan Created Successfully!'], 200);
     }
 
@@ -61,6 +69,7 @@ class PlanController extends Controller
         }
 
         $plan = Plan::find($plan->id)->update($validated->validate());
+        Cache::forget('active_plans');
         return response()->json(['status'=>true, 'message'=>'Plan Updated Successfully!'], 200);
     }
 
