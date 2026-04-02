@@ -1,0 +1,430 @@
+{
+  "info": {
+    "_postman_id": "7f3cf972-dbbc-4ac4-9b43-511b3c975948",
+    "name": "LaravelTask",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "31396218",
+    "_collection_link": "https://go.postman.co/collection/31396218-7f3cf972-dbbc-4ac4-9b43-511b3c975948?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "plans store",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "name",
+              "value": "Platinum",
+              "type": "text",
+              "uuid": "2bda2c5b-7969-4be9-a1c6-a3287abca411"
+            },
+            {
+              "key": "price",
+              "value": "9999.99",
+              "type": "text",
+              "uuid": "992e1331-f964-422f-b6c2-ddfe4ac484e8"
+            },
+            {
+              "key": "billing_cycle",
+              "value": "Monthly",
+              "type": "text",
+              "uuid": "7831d38f-4e1e-480a-8385-636cd266de0e"
+            },
+            {
+              "key": "status",
+              "value": "Active",
+              "type": "text",
+              "uuid": "80685292-2bfb-414e-89c8-0e629617b3b6"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/plans",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "plans"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "plans update",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "name",
+              "value": "Silver",
+              "type": "text",
+              "uuid": "2bda2c5b-7969-4be9-a1c6-a3287abca411"
+            },
+            {
+              "key": "price",
+              "value": "999999.00",
+              "type": "text",
+              "uuid": "992e1331-f964-422f-b6c2-ddfe4ac484e8"
+            },
+            {
+              "key": "billing_cycle",
+              "value": "Yearly",
+              "type": "text",
+              "uuid": "7831d38f-4e1e-480a-8385-636cd266de0e"
+            },
+            {
+              "key": "status",
+              "value": "Active",
+              "type": "text",
+              "uuid": "80685292-2bfb-414e-89c8-0e629617b3b6"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/plans/2",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "plans",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "users store",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "name",
+              "value": "Karan Sharma",
+              "type": "text",
+              "uuid": "2bda2c5b-7969-4be9-a1c6-a3287abca411"
+            },
+            {
+              "key": "email",
+              "value": "karan@gmail.com",
+              "type": "text",
+              "uuid": "147bbc72-320e-4795-b353-ebd01da56310"
+            },
+            {
+              "key": "password",
+              "value": "karan@123",
+              "type": "text",
+              "uuid": "c8efd5ad-323e-4fba-a798-3aa227e5b4fe"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/users",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "users fetch",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "name",
+              "value": "Karan Sharma",
+              "type": "text",
+              "uuid": "2bda2c5b-7969-4be9-a1c6-a3287abca411"
+            },
+            {
+              "key": "email",
+              "value": "karan@gmail.com",
+              "type": "text",
+              "uuid": "147bbc72-320e-4795-b353-ebd01da56310"
+            },
+            {
+              "key": "password",
+              "value": "karan@123",
+              "type": "text",
+              "uuid": "c8efd5ad-323e-4fba-a798-3aa227e5b4fe"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/users",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "plans fetch",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "name",
+              "value": "Karan Sharma",
+              "type": "text",
+              "uuid": "2bda2c5b-7969-4be9-a1c6-a3287abca411"
+            },
+            {
+              "key": "email",
+              "value": "karan@gmail.com",
+              "type": "text",
+              "uuid": "147bbc72-320e-4795-b353-ebd01da56310"
+            },
+            {
+              "key": "password",
+              "value": "karan@123",
+              "type": "text",
+              "uuid": "c8efd5ad-323e-4fba-a798-3aa227e5b4fe"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/plans",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "plans"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "subscriptions store",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "plan_id",
+              "value": "1",
+              "type": "text",
+              "uuid": "ffbc3080-2b96-43b2-833a-ce9382ff1c0e"
+            },
+            {
+              "key": "user_id",
+              "value": "1",
+              "type": "text",
+              "uuid": "238fe772-b854-45d4-a2bb-e425842b1b4d"
+            },
+            {
+              "key": "start_date",
+              "value": "01-04-2026",
+              "type": "text",
+              "uuid": "9bf3c247-5bb1-4028-84de-855dd49e32c0"
+            },
+            {
+              "key": "end_date",
+              "value": "30-04-2026",
+              "type": "text",
+              "uuid": "84ae88eb-1af9-4267-b146-7f4a7b2c3854"
+            },
+            {
+              "key": "amount",
+              "value": "8000",
+              "type": "text",
+              "uuid": "e0c1cfea-af27-41ef-91bc-df8b80969c47"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/subscriptions",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "subscriptions"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "subscriptions fetch",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/subscriptions?status=Active",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "subscriptions"
+          ],
+          "query": [
+            {
+              "key": "status",
+              "value": "Active"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "subscriptions update",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "plan_id",
+              "value": "1",
+              "type": "text",
+              "uuid": "9079a689-b116-48eb-a434-deaabaf37f31"
+            },
+            {
+              "key": "user_id",
+              "value": "1",
+              "type": "text",
+              "uuid": "5c230ed7-3181-4b95-ac53-88c4424bea93"
+            },
+            {
+              "key": "start_date",
+              "value": "01-03-2026",
+              "type": "text",
+              "uuid": "40c8f50e-9e4a-49bb-a1d1-4ede1f7c0d4e"
+            },
+            {
+              "key": "end_date",
+              "value": "31-03-2026",
+              "type": "text",
+              "uuid": "4cbacc81-5a4c-49c5-ada1-92a905fc578a"
+            },
+            {
+              "key": "amount",
+              "value": "7000",
+              "type": "text",
+              "uuid": "23d5f8f3-b4b4-48c6-a647-01591fb176fd"
+            },
+            {
+              "key": "status",
+              "value": "Active",
+              "type": "text",
+              "uuid": "55f3c858-cd88-4a74-b2f6-d9e3c6dac7b0"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/subscriptions/1",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "subscriptions",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
