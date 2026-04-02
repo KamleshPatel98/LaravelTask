@@ -19,6 +19,7 @@ class SubscriptionController extends Controller
             return Subscription::with('plan:id,name,price,billing_cycle' ,'user:id,name,email')
                 ->select('id', 'plan_id', 'user_id', 'start_date', 'end_date', 'amount', 'status')
                 ->orderBy('start_date', 'desc')
+                ->where('status', 'Active')
                 ->get()
                 ->map(function($row){
                     $row->start_date = date('d-m-Y', strtotime($row->start_date));
@@ -80,7 +81,37 @@ class SubscriptionController extends Controller
      */
     public function update(Request $request, Subscription $subscription)
     {
-        //
+        $validated = Validator::make($request->all(), [
+            'plan_id' => 'required|exists:plans,id',
+            'user_id' => 'required|exists:users,id',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+            'amount' => 'required|numeric|between:0,999999.99',
+            'status' => 'required|in:Active,Inactive',
+        ]);
+        if($validated->fails()){
+            return response()->json(['status'=>false, 'message'=>$validated->errors()->first(), 'error'=>'Validation Error!'], 422);
+        }
+
+        $exists = Subscription::where('user_id', $request->user_id)
+            ->where('plan_id', $request->plan_id)
+            ->where('status', 'Active')
+            ->whereNot('id', $subscription->id)
+            ->exists();
+        if($exists){
+            return response()->json(['status'=>false, 'message'=>'This Plan Subscription Already Exists!'], 422);
+        }
+
+        Subscription::find($subscription->id)->update([
+            'plan_id' => $request->plan_id,
+            'user_id' => $request->user_id,
+            'start_date' => date('Y-m-d', strtotime($request->start_date)),
+            'end_date' => date('Y-m-d', strtotime($request->end_date)),
+            'amount' => $request->amount,
+            'status' => $request->status,
+        ]);
+        Cache::forget('user_subscriptions');
+        return response()->json(['status'=>true, 'message'=>'Subscription Updated Successfully!'], 200);
     }
 
     /**
