@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 
 class SubscriptionController extends Controller
@@ -14,16 +15,19 @@ class SubscriptionController extends Controller
      */
     public function index()
     {
-        $subscriptions = Subscription::with('plan:id,name,price,billing_cycle' ,'user:id,name,email')
-            ->select('id', 'plan_id', 'user_id', 'start_date', 'end_date', 'amount', 'status')
-            ->orderBy('start_date', 'desc')
-            ->get()
-            ->map(function($row){
-                $row->start_date = date('d-m-Y', strtotime($row->start_date));
-                $row->end_date = date('d-m-Y', strtotime($row->end_date));
-                return $row;
+        $subscriptions = Cache::remember('user_subscriptions', 600, function () {
+            return Subscription::with('plan:id,name,price,billing_cycle' ,'user:id,name,email')
+                ->select('id', 'plan_id', 'user_id', 'start_date', 'end_date', 'amount', 'status')
+                ->orderBy('start_date', 'desc')
+                ->get()
+                ->map(function($row){
+                    $row->start_date = date('d-m-Y', strtotime($row->start_date));
+                    $row->end_date = date('d-m-Y', strtotime($row->end_date));
+                    return $row;
 
-            });
+                });
+        });
+            
         return response()->json(['status'=>true, 'message'=>'Subscriptions Fetched Successfully!', 'data' => $subscriptions], 200);
     }
 
@@ -59,8 +63,8 @@ class SubscriptionController extends Controller
             'amount' => $request->amount,
             'status' => 'Active',
         ]);
+        Cache::forget('user_subscriptions');
         return response()->json(['status'=>true, 'message'=>'Subscription Created Successfully!'], 200);
-
     }
 
     /**
