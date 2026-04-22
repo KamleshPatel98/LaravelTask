@@ -15,57 +15,57 @@ class UserController extends Controller
      * Display a listing of the resource.
      */
     #[OA\Get(
-    path: "/users",
-    summary: "Get all users",
-    description: "Fetch all users with id, name, and email",
-    operationId: "getUsers",
-    tags: ["Users"],
-    responses: [
-        new OA\Response(
-            response: 200,
-            description: "Users fetched successfully",
-            content: new OA\JsonContent(
-                type: "object",
-                properties: [
-                    new OA\Property(
-                        property: "status",
-                        type: "boolean",
-                        example: true
-                    ),
-                    new OA\Property(
-                        property: "message",
-                        type: "string",
-                        example: "User Fetched Successfully!"
-                    ),
-                    new OA\Property(
-                        property: "data",
-                        type: "array",
-                        items: new OA\Items(
-                            type: "object",
-                            properties: [
-                                new OA\Property(
-                                    property: "id",
-                                    type: "integer",
-                                    example: 1
-                                ),
-                                new OA\Property(
-                                    property: "name",
-                                    type: "string",
-                                    example: "John Doe"
-                                ),
-                                new OA\Property(
-                                    property: "email",
-                                    type: "string",
-                                    example: "john@example.com"
-                                ),
-                            ]
-                        )
-                    ),
-                ]
+        path: "/users",
+        summary: "Get all users",
+        description: "Fetch all users with id, name, and email",
+        operationId: "getUsers",
+        tags: ["Users"],
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: "Users fetched successfully",
+                content: new OA\JsonContent(
+                    type: "object",
+                    properties: [
+                        new OA\Property(
+                            property: "status",
+                            type: "boolean",
+                            example: true
+                        ),
+                        new OA\Property(
+                            property: "message",
+                            type: "string",
+                            example: "User Fetched Successfully!"
+                        ),
+                        new OA\Property(
+                            property: "data",
+                            type: "array",
+                            items: new OA\Items(
+                                type: "object",
+                                properties: [
+                                    new OA\Property(
+                                        property: "id",
+                                        type: "integer",
+                                        example: 1
+                                    ),
+                                    new OA\Property(
+                                        property: "name",
+                                        type: "string",
+                                        example: "John Doe"
+                                    ),
+                                    new OA\Property(
+                                        property: "email",
+                                        type: "string",
+                                        example: "john@example.com"
+                                    ),
+                                ]
+                            )
+                        ),
+                    ]
+                )
             )
-        )
-    ]
-)]
+        ]
+    )]
     public function index()
     {
         $users = User::select('id', 'name', 'email')->get();

@@ -20,6 +20,274 @@
         }
     ],
     "paths": {
+        "/plans": {
+            "get": {
+                "tags": [
+                    "Plans"
+                ],
+                "summary": "Get active plans",
+                "description": "Fetch all active plans (cached for 10 minutes)",
+                "operationId": "getPlans",
+                "responses": {
+                    "200": {
+                        "description": "Plans fetched successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Plans Fetched Successfully!"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Basic Plan"
+                                                    },
+                                                    "price": {
+                                                        "type": "number",
+                                                        "format": "float",
+                                                        "example": 499.99
+                                                    },
+                                                    "billing_cycle": {
+                                                        "type": "string",
+                                                        "example": "monthly"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Plans"
+                ],
+                "summary": "Create a new plan",
+                "description": "Create a new subscription plan and clear cached active plans",
+                "operationId": "storePlan",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "price",
+                                    "billing_cycle",
+                                    "status"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Premium Plan"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 999.99
+                                    },
+                                    "billing_cycle": {
+                                        "type": "string",
+                                        "example": "Monthly",
+                                        "enum": [
+                                            "Monthly",
+                                            "Yearly"
+                                        ]
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "example": "Active",
+                                        "enum": [
+                                            "Active",
+                                            "Inactive"
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Plan created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Plan Created Successfully!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The name has already been taken."
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Validation Error!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/plans/{id}": {
+            "put": {
+                "tags": [
+                    "Plans"
+                ],
+                "summary": "Update a plan",
+                "description": "Update an existing plan and clear cached active plans",
+                "operationId": "updatePlan",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Plan ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "price",
+                                    "billing_cycle",
+                                    "status"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Premium Plan"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 1499.99
+                                    },
+                                    "billing_cycle": {
+                                        "type": "string",
+                                        "example": "Yearly",
+                                        "enum": [
+                                            "Monthly",
+                                            "Yearly"
+                                        ]
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "example": "Active",
+                                        "enum": [
+                                            "Active",
+                                            "Inactive"
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Plan updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Plan Updated Successfully!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The name has already been taken."
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Validation Error!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Plan not found"
+                    }
+                }
+            }
+        },
         "/users": {
             "get": {
                 "tags": [
@@ -159,6 +427,10 @@
         }
     },
     "tags": [
+        {
+            "name": "Plans",
+            "description": "Plans"
+        },
         {
             "name": "Users",
             "description": "Users"
