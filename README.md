@@ -1,59 +1,676 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel Task Management API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A RESTful API built with **Laravel 12** for managing users, subscription plans, and user subscriptions.
 
-## About Laravel
+The project provides CRUD APIs for:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+* 👤 Users
+* 📦 Subscription Plans
+* 🔄 Subscriptions
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+The API is designed using Laravel RESTful API conventions and includes **Laravel Sanctum** for API authentication and **Swagger/OpenAPI** documentation.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 🚀 Tech Stack
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+* **Laravel 12**
+* **PHP 8.2+**
+* **MySQL**
+* **Laravel Sanctum**
+* **Swagger / OpenAPI**
+* **L5-Swagger**
+* **Swagger-PHP**
+* **Eloquent ORM**
+* **RESTful API**
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## 📌 Features
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### User Management
 
-### Premium Partners
+* Create user
+* View all users
+* View single user
+* Update user
+* Delete user
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Plan Management
 
-## Contributing
+* Create subscription plan
+* View all plans
+* View single plan
+* Update plan
+* Delete plan
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Subscription Management
 
-## Code of Conduct
+* Create subscription
+* View all subscriptions
+* View single subscription
+* Update subscription
+* Delete subscription
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### API Documentation
 
-## Security Vulnerabilities
+Interactive Swagger documentation is available for testing and exploring all API endpoints.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+# 📁 Project Structure
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```text
+LaravelTask/
+│
+├── app/
+│   ├── Http/
+│   │   └── Controllers/
+│   │       ├── PlanController.php
+│   │       ├── UserController.php
+│   │       └── SubscriptionController.php
+│   │
+│   ├── Models/
+│   │   ├── Plan.php
+│   │   ├── User.php
+│   │   └── Subscription.php
+│   │
+│   └── ...
+│
+├── database/
+│   ├── migrations/
+│   ├── seeders/
+│   └── factories/
+│
+├── routes/
+│   ├── api.php
+│   └── web.php
+│
+├── config/
+│   └── l5-swagger.php
+│
+├── resources/
+│
+├── public/
+│
+├── LaravelTask.postman_collection.json
+├── laravelTask.sql
+├── composer.json
+├── package.json
+└── README.md
+```
+
+---
+
+# ⚙️ Installation
+
+## 1. Clone Repository
+
+```bash
+git clone https://github.com/KamleshPatel98/LaravelTask.git
+```
+
+Move into the project:
+
+```bash
+cd LaravelTask
+```
+
+---
+
+## 2. Install PHP Dependencies
+
+```bash
+composer install
+```
+
+---
+
+## 3. Create Environment File
+
+```bash
+cp .env.example .env
+```
+
+---
+
+## 4. Generate Application Key
+
+```bash
+php artisan key:generate
+```
+
+---
+
+## 5. Configure Database
+
+Update `.env` according to your MySQL configuration:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel_task
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+---
+
+## 6. Run Migrations
+
+```bash
+php artisan migrate
+```
+
+If you want to use the included SQL database file, you can import:
+
+```text
+laravelTask.sql
+```
+
+---
+
+## 7. Install Frontend Dependencies
+
+```bash
+npm install
+```
+
+Build assets:
+
+```bash
+npm run build
+```
+
+For development:
+
+```bash
+npm run dev
+```
+
+---
+
+## 8. Start Laravel Server
+
+```bash
+php artisan serve
+```
+
+Application will be available at:
+
+```text
+http://127.0.0.1:8000
+```
+
+---
+
+# 🔗 API Base URL
+
+```text
+http://127.0.0.1:8000/api
+```
+
+---
+
+# 📚 API Endpoints
+
+The API uses Laravel `apiResource` routes.
+
+```php
+Route::apiResource('plans', PlanController::class);
+
+Route::apiResource('users', UserController::class);
+
+Route::apiResource('subscriptions', SubscriptionController::class);
+```
+
+---
+
+# 📦 Plans API
+
+## Get All Plans
+
+```http
+GET /api/plans
+```
+
+Returns a list of all subscription plans.
+
+### Example
+
+```bash
+curl --location 'http://127.0.0.1:8000/api/plans'
+```
+
+---
+
+## Get Single Plan
+
+```http
+GET /api/plans/{id}
+```
+
+Example:
+
+```bash
+curl --location 'http://127.0.0.1:8000/api/plans/1'
+```
+
+---
+
+## Create Plan
+
+```http
+POST /api/plans
+```
+
+### Example Request
+
+```json
+{
+    "name": "Premium",
+    "price": 999,
+    "duration": 30
+}
+```
+
+---
+
+## Update Plan
+
+```http
+PUT /api/plans/{id}
+```
+
+Example:
+
+```json
+{
+    "name": "Premium Plus",
+    "price": 1299,
+    "duration": 30
+}
+```
+
+---
+
+## Delete Plan
+
+```http
+DELETE /api/plans/{id}
+```
+
+Example:
+
+```bash
+curl --location --request DELETE \
+'http://127.0.0.1:8000/api/plans/1'
+```
+
+---
+
+# 👤 Users API
+
+## Get All Users
+
+```http
+GET /api/users
+```
+
+Example:
+
+```bash
+curl --location 'http://127.0.0.1:8000/api/users'
+```
+
+---
+
+## Get Single User
+
+```http
+GET /api/users/{id}
+```
+
+Example:
+
+```bash
+curl --location 'http://127.0.0.1:8000/api/users/1'
+```
+
+---
+
+## Create User
+
+```http
+POST /api/users
+```
+
+Example:
+
+```json
+{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "password": "password"
+}
+```
+
+---
+
+## Update User
+
+```http
+PUT /api/users/{id}
+```
+
+Example:
+
+```json
+{
+    "name": "John Updated",
+    "email": "john.updated@example.com"
+}
+```
+
+---
+
+## Delete User
+
+```http
+DELETE /api/users/{id}
+```
+
+---
+
+# 🔄 Subscriptions API
+
+## Get All Subscriptions
+
+```http
+GET /api/subscriptions
+```
+
+---
+
+## Get Single Subscription
+
+```http
+GET /api/subscriptions/{id}
+```
+
+---
+
+## Create Subscription
+
+```http
+POST /api/subscriptions
+```
+
+Example:
+
+```json
+{
+    "user_id": 1,
+    "plan_id": 1,
+    "start_date": "2026-10-01",
+    "end_date": "2026-10-31"
+}
+```
+
+---
+
+## Update Subscription
+
+```http
+PUT /api/subscriptions/{id}
+```
+
+Example:
+
+```json
+{
+    "plan_id": 2,
+    "start_date": "2026-10-01",
+    "end_date": "2026-11-30"
+}
+```
+
+---
+
+## Delete Subscription
+
+```http
+DELETE /api/subscriptions/{id}
+```
+
+---
+
+# 📊 API Resource Summary
+
+| Resource      | GET All              | GET Single                | POST                 | PUT                       | DELETE                    |
+| ------------- | -------------------- | ------------------------- | -------------------- | ------------------------- | ------------------------- |
+| Plans         | `/api/plans`         | `/api/plans/{id}`         | `/api/plans`         | `/api/plans/{id}`         | `/api/plans/{id}`         |
+| Users         | `/api/users`         | `/api/users/{id}`         | `/api/users`         | `/api/users/{id}`         | `/api/users/{id}`         |
+| Subscriptions | `/api/subscriptions` | `/api/subscriptions/{id}` | `/api/subscriptions` | `/api/subscriptions/{id}` | `/api/subscriptions/{id}` |
+
+---
+
+# 📖 Swagger API Documentation
+
+This project uses **L5-Swagger** and **Swagger-PHP** to generate interactive OpenAPI documentation.
+
+Generate Swagger documentation using:
+
+```bash
+php artisan l5-swagger:generate
+```
+
+After starting the application, open:
+
+```text
+http://127.0.0.1:8000/api/documentation
+```
+
+Swagger UI allows you to:
+
+* View all API endpoints
+* View request parameters
+* View request bodies
+* View API responses
+* Test APIs directly from the browser
+* Explore Plans, Users and Subscriptions APIs
+
+---
+
+# 🧾 Swagger/OpenAPI Resources
+
+The API documentation should cover the following resources:
+
+```text
+User
+Plan
+Subscription
+```
+
+Recommended API tags:
+
+```text
+Users
+Plans
+Subscriptions
+```
+
+---
+
+# 🔐 Authentication
+
+Laravel Sanctum is included in the project for API authentication.
+
+For authenticated APIs, send the token using:
+
+```http
+Authorization: Bearer YOUR_TOKEN
+```
+
+Example:
+
+```http
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer YOUR_TOKEN
+```
+
+---
+
+# 📮 Postman Collection
+
+A Postman collection is included in the repository:
+
+```text
+LaravelTask.postman_collection.json
+```
+
+Import this file into Postman to test the API endpoints.
+
+The collection can be used for:
+
+* User CRUD
+* Plan CRUD
+* Subscription CRUD
+* API request testing
+
+---
+
+# 🗄️ Database
+
+The project includes database migrations and an SQL database file:
+
+```text
+laravelTask.sql
+```
+
+Main entities:
+
+```text
+users
+plans
+subscriptions
+```
+
+### Relationship
+
+```text
+User
+ │
+ └── hasMany
+       │
+       ▼
+Subscriptions
+       │
+       └── belongsTo
+              │
+              ▼
+             Plan
+```
+
+Conceptually:
+
+```text
+User 1 ──────── * Subscription * ──────── 1 Plan
+```
+
+---
+
+# 🧪 Testing
+
+Run Laravel tests with:
+
+```bash
+php artisan test
+```
+
+Or:
+
+```bash
+composer test
+```
+
+---
+
+# 🛠️ Useful Artisan Commands
+
+Clear application cache:
+
+```bash
+php artisan optimize:clear
+```
+
+Run migrations:
+
+```bash
+php artisan migrate
+```
+
+Generate Swagger documentation:
+
+```bash
+php artisan l5-swagger:generate
+```
+
+Start development server:
+
+```bash
+php artisan serve
+```
+
+---
+
+# 📌 API Response Format
+
+A typical successful API response can be structured as:
+
+```json
+{
+    "success": true,
+    "message": "Request successful",
+    "data": {}
+}
+```
+
+Validation errors should return appropriate HTTP status codes with error details.
+
+---
+
+# 💡 Development Highlights
+
+This project demonstrates:
+
+* RESTful API development with Laravel
+* Resource controllers
+* Eloquent models and relationships
+* API validation
+* Laravel Sanctum authentication
+* CRUD operations
+* MySQL database integration
+* Swagger/OpenAPI API documentation
+* Postman API testing
+* Laravel migrations and seeders
+
+---
+
+# 👨‍💻 Author
+
+**Kamlesh Patel**
+
+Laravel Developer
+
+GitHub:
+
+https://github.com/KamleshPatel98
+
+LinkedIn:
+
+https://linkedin.com/in/kamlesh-patel-350bbb246
+
+---
